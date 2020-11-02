@@ -1,17 +1,32 @@
+# import re
+
 def get_allrecipe_recipe_ingredients(html):
+	# ingredients-section
+	# print(html)
 	ingredients = []
 	try:
-		input_tag = html.find(attrs={"class" : "keyvals"})
-		keys = list(input_tag.attrs.keys())
-		# print(keys)
-		for value in range(0, len(keys)):
-			if "ingredients" in keys[value]:
-				raw_string_ingredients = input_tag.attrs[keys[value]]
-				ingredients = raw_string_ingredients.split()
-				return ingredients
+		# input_tag = html.find(attrs={"class" : "keyvals"})
+		# keys = list(input_tag.attrs.keys())
+		# # print(keys)
+		# for value in range(0, len(keys)):
+		# 	if "ingredients" in keys[value]:
+		# 		raw_string_ingredients = input_tag.attrs[keys[value]]
+		# 		print("raw: {}".format(raw_string_ingredients))
+		# 		# ingredients = raw_string_ingredients.split(", ")
+		# 		arr = re.split(',|\.',raw_string_ingredients)
+		# 		# print(re.split(',|\.',raw_string_ingredients))
+		# 		for item in arr:
+		# 			print(item.trim())
+
+		# # return ingredients
+		input_tag = html.find(attrs={"class" : "ingredients-section"})
+		elements = input_tag.findAll(attrs={"class", "ingredients-item-name"})
+		for item in elements:
+			# print(item.text.strip())
+			ingredients.append(item.text.strip().replace("  ", " "))
 	except Exception as e:
-		# print("{}".format(e))
-		return []
+		print("{}".format(e))
+
 	return ingredients
 
 def get_allrecipe_recipe_categories(html):

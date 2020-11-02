@@ -2,11 +2,11 @@
   "recipes": [
     {
       "categories": "[\"food & drink\", \"cooking & recipes\", \"desserts\", \"food\", \"baked goods\"]",
-      "ingredients": "[\"chopped\", \"candy\", \"bars,\", \"or\", \"more\", \"to\", \"taste,white\", \"sugar,butter,eggs,all-purpose\", \"flour,baking\", \"soda,cooking\", \"spray\"]",
+      "ingredients": "[\"2 cups chopped candy bars, or more to taste\", \"1 cup white sugar\", \"\\u00bd cup butter\", \"2 eggs\", \"2\\u2009\\u00bc cups all-purpose flour\", \"1 teaspoon baking soda\", \"cooking spray\"]",
       "instructions": "[\"Melt candy bars, sugar, and butter in a saucepan over medium heat. Remove from heat and cool slightly, about 5 minutes.\", \"Beat in eggs, one at at time, until smooth. Mix in flour and baking soda to create a sticky dough.\", \"Chill dough in the refrigerator until it can be easily scooped, about 1 hour.\", \"Preheat oven to 350 degrees F (175 degrees C). Grease 2 baking sheets with cooking spray.\", \"Roll 1 1/2 teaspoonful of dough into balls. Place onto prepared baking sheets 1 inch apart.\", \"Bake in the preheated oven until brown and fluffy, 10 to 12 minutes.\"]",
       "recipe_id": "255500",
       "title": "Leftover Halloween Candy Cookies Recipe",
-      "uuid": "3c9d7f6a-1d55-11eb-b582-f40f2423d0cf"
+      "uuid": "3540c282-1d59-11eb-ba9c-f40f2423d0cf"
     }
   ]
 }
