@@ -19,7 +19,7 @@ route = "recipe/" # 255989 # 25599
 
 START_RECIPE_ID = 255500 # 255500
 
-END_RECIPE_ID = 255501 # 255501 # 269730
+END_RECIPE_ID = 269730 # 255501 # 269730
 
 def get_page_html(url_address):
 	try:
@@ -33,37 +33,41 @@ def get_page_html(url_address):
 def getAllRecipeData(recipe_id):
 	url = "{}{}{}".format(base_url, route, recipe_id)
 	html = get_page_html(url)
-	if type(html) != urllib.error.URLError and html.title != None:
-		title = html.title
-		print(bcolors.OKGREEN + "{}".format(url) + bcolors.ENDC)
-		print(bcolors.OKGREEN + "{}".format(title.text) + bcolors.ENDC)
-		title = "{}".format(title.text
-			.replace("Allrecipes", "")
-			.replace("|", "")
-			.strip()
-		)
-		ingredients = []
-		instructions = []
-		categories = []
+	try:
+		if type(html) != urllib.error.URLError:
+			title = html.title
+			print(bcolors.OKGREEN + "{}".format(url) + bcolors.ENDC)
+			print(bcolors.OKGREEN + "{}".format(title.text) + bcolors.ENDC)
+			title = "{}".format(title.text
+				.replace("Allrecipes", "")
+				.replace("|", "")
+				.strip()
+			)
+			ingredients = []
+			instructions = []
+			categories = []
 
-		ingredients = get_allrecipe_recipe_ingredients(html)
-		instructions = get_allrecipe_recipe_instructions(html)
-		categories = get_allrecipe_recipe_categories(html)
-		image = get_recipe_image(html)
+			ingredients = get_allrecipe_recipe_ingredients(html)
+			instructions = get_allrecipe_recipe_instructions(html)
+			categories = get_allrecipe_recipe_categories(html)
+			image = get_recipe_image(html)
 
-		recipe_data = {
-			"uuid": str(uuid.uuid1()),
-			"recipe_id": recipe_id,
-			"title": title,
-			"ingredients": json.dumps(ingredients),
-			"instructions": json.dumps(instructions),
-			"categories": json.dumps(categories),
-		}
-		# print(recipe_data)
-		return recipe_data
-	else:
-		# do something with bad url request
-		print("Error html: {}".format(html))
+			recipe_data = {
+				"uuid": str(uuid.uuid1()),
+				"recipe_id": recipe_id,
+				"title": title,
+				"ingredients": json.dumps(ingredients),
+				"instructions": json.dumps(instructions),
+				"categories": json.dumps(categories),
+				"image": image,
+			}
+			# print(recipe_data)
+			return recipe_data
+		else:
+			# do something with bad url request
+			print("Error html: {}".format(html))
+	except Exception as e:
+		return None
 
 def debug_print_recipe(recipe):
 	keys = ["recipe_id", "title", "ingredients"] # list(dict(recipe))
@@ -76,13 +80,14 @@ def main():
 		recipe_id = "{}".format(i)
 		print(bcolors.OKCYAN + "recipe_id: {}".format(i) + bcolors.ENDC)
 		recipe_data = getAllRecipeData(recipe_id)
-		debug_print_recipe(recipe_data)
-		writeRecipeData(recipe_data)
+		if recipe_data:
+			# debug_print_recipe(recipe_data)
+			writeRecipeData(recipe_data)
 
 if __name__ == "__main__":
 	main()
 
-# print(getAllRecipeData(255504)["ingredients"])
+# print(getAllRecipeData(255517))
 
 
 
