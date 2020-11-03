@@ -9,7 +9,7 @@ except ImportError as e:
 	pass # module doesn't exist, deal with it.
 
 # local modules
-from allrecipes import get_allrecipe_recipe_ingredients, get_allrecipe_recipe_instructions, get_allrecipe_recipe_categories
+from allrecipes import get_allrecipe_recipe_ingredients, get_allrecipe_recipe_instructions, get_allrecipe_recipe_categories, get_recipe_image
 from fileio import readFile, writeNewFile, writeRecipeData
 from console_colors import bcolors
 
@@ -19,7 +19,7 @@ route = "recipe/" # 255989 # 25599
 
 START_RECIPE_ID = 255500 # 255500
 
-END_RECIPE_ID = 269730 # 255501 # 269730
+END_RECIPE_ID = 255501 # 255501 # 269730
 
 def get_page_html(url_address):
 	try:
@@ -33,13 +33,8 @@ def get_page_html(url_address):
 def getAllRecipeData(recipe_id):
 	url = "{}{}{}".format(base_url, route, recipe_id)
 	html = get_page_html(url)
-	try:
+	if type(html) != urllib.error.URLError and html.title != None:
 		title = html.title
-	except Exception as e:
-		print("{}".format(e))
-		return
-	if type(html) != urllib.error.URLError:
-		print()
 		print(bcolors.OKGREEN + "{}".format(url) + bcolors.ENDC)
 		print(bcolors.OKGREEN + "{}".format(title.text) + bcolors.ENDC)
 		title = "{}".format(title.text
@@ -54,6 +49,8 @@ def getAllRecipeData(recipe_id):
 		ingredients = get_allrecipe_recipe_ingredients(html)
 		instructions = get_allrecipe_recipe_instructions(html)
 		categories = get_allrecipe_recipe_categories(html)
+		image = get_recipe_image(html)
+
 		recipe_data = {
 			"uuid": str(uuid.uuid1()),
 			"recipe_id": recipe_id,
